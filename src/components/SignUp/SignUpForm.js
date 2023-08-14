@@ -6,6 +6,7 @@ const SignupForm = () => {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [alert, setAlert] = useState('');
+  const [isLogin, setIsLogin] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -17,7 +18,18 @@ const SignupForm = () => {
     }
 
     try {
-      const response = await fetch('https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAVIbdHb1HjOT4pjxuuD7s0sq-EzzC1uQo', {
+        let endpoint = '';
+      let message = '';
+
+      if (isLogin) {
+        endpoint = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAVIbdHb1HjOT4pjxuuD7s0sq-EzzC1uQo';
+        message = 'Login successful!';
+      } else {
+        endpoint = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAVIbdHb1HjOT4pjxuuD7s0sq-EzzC1uQo';
+        message = 'Signup successful!';
+      }
+
+      const response = await fetch(endpoint, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -31,14 +43,13 @@ const SignupForm = () => {
 
       if (response.ok) {
         const data = await response.json();
-        console.log('Signup successful', data);
-        setAlert('Signup successful!');
-        // Do something after successful signup
+        console.log('Operation successful', data);
+        setAlert(message);
+        // Do something after successful operation
       } else {
         const errorData = await response.json();
-        console.error('Signup failed', errorData);
-        // Do something with the error
-        setAlert('Signup failed');
+        console.error('Operation failed', errorData);
+        setAlert('Operation failed');
         // Clear form fields
         setEmail('');
         setPassword('');
@@ -46,14 +57,13 @@ const SignupForm = () => {
       }
     } catch (error) {
       console.error('Error:', error);
-      // Handle network or other errors
-      setAlert('Error occurred during signup');
+      setAlert('Error occurred during operation');
     }
   };
 
   return (
     <form className="signup-form" onSubmit={handleSubmit}>
-      <h2>Sign Up</h2>
+       <h2>{isLogin ? 'Login' : 'Sign Up'}</h2>
       {alert && <div className="alert">{alert}</div>}
       <div className="form-group">
         <label htmlFor="email">Email:</label>
@@ -64,14 +74,23 @@ const SignupForm = () => {
           onChange={(e) => setEmail(e.target.value)}
         />
       </div>
-      <div className="form-group">
-        <label htmlFor="password">Password:</label>
-        <input
-          type="password"
-          id="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+      {!isLogin && (
+        <div className="form-group">
+          <label htmlFor="confirmPassword">Confirm Password:</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            value={confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value)}
+          />
+        </div>
+      )}
+      <button type="submit">{isLogin ? 'Login' : 'Sign Up'}</button>
+      <div>
+        {isLogin ? 'Need an account? ' : 'Already have an account? '}
+        <button type="button" onClick={() => setIsLogin(!isLogin)}>
+          {isLogin ? 'Sign Up' : 'Login'}
+        </button>
       </div>
       <div className="form-group">
         <label htmlFor="confirmPassword">Confirm Password:</label>
@@ -82,7 +101,6 @@ const SignupForm = () => {
           onChange={(e) => setConfirmPassword(e.target.value)}
         />
       </div>
-      <button type="submit">Sign Up</button>
     </form>
   );
 };
