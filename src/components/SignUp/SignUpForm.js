@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './SignupForm.css';
 
-const SignupForm = () => {
+const SignupForm = ({ onSuccessfulLogin }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
@@ -49,7 +49,8 @@ const SignupForm = () => {
         setEmail('');
         setPassword('');
         setConfirmPassword('');
-        // Do something after successful operation
+          // Call the onSuccessfulLogin callback with the user's information
+          onSuccessfulLogin(data.displayName, data.photoUrl);
       } else {
         const errorData = await response.json();
         console.error('Operation failed', errorData);

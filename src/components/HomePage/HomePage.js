@@ -1,12 +1,15 @@
 import React from 'react';
 
-const HomePage = () => {
+const HomePage = ({ fullName, profilePhotoUrl }) => {
   return (
-    <div className="left-side">
-      <h2>Dummy Text</h2>
-      <p>This is some dummy text content.</p>
+    <div className="profile-page">
+      <h2>Welcome, {fullName}!</h2>
+      <img src={profilePhotoUrl} alt="Profile" />
+      <p>This is the homepage content.</p>
     </div>
   );
 };
+  
+
 
 export default HomePage;
