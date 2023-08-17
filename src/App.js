@@ -9,6 +9,10 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [fullName, setFullName] = useState('');
   const [profilePhotoUrl, setProfilePhotoUrl] = useState('');
+  import VerifyEmail from './components/SignUp/VerifyEmail';
+
+
+
   const handleSuccessfulLogin = (name, photoUrl) => {
     // Set the state variables and mark the user as logged in
     setFullName(name);
@@ -24,7 +28,12 @@ function App() {
     );
   }
 
-  return <HomePage fullName={fullName} profilePhotoUrl={profilePhotoUrl} />;
+  return (
+    <div>
+      <HomePage fullName={fullName} profilePhotoUrl={profilePhotoUrl} />
+      <VerifyEmail />
+    </div>
+  );
 }
 
 
