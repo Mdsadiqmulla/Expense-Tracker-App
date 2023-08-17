@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import VerifyEmail from './components/SignUp/VerifyEmail';
 
 
 import './App.css';
@@ -9,7 +10,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [fullName, setFullName] = useState('');
   const [profilePhotoUrl, setProfilePhotoUrl] = useState('');
-  import VerifyEmail from './components/SignUp/VerifyEmail';
+ 
 
 
 
