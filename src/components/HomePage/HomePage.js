@@ -37,6 +37,16 @@ const HomePage = () => {
     setCategory('');
   };
 
+  const handleDeleteExpense = (index) => {
+    // Create a new array excluding the expense at the specified index
+    const updatedExpenses = expenses.filter((expense, currentIndex) => {
+      return currentIndex !== index;
+    });
+
+    // Update the expenses state with the new array
+    setExpenses(updatedExpenses);
+  };
+
   return (
     
     <div>
@@ -83,6 +93,7 @@ const HomePage = () => {
                 <strong>Money Spent:</strong> {expense.moneySpent},{' '}
                 <strong>Description:</strong> {expense.description},{' '}
                 <strong>Category:</strong> {expense.category}
+                <button onClick={() => handleDeleteExpense(index)}>Delete</button>
               </li>
             ))}
           </ul>
