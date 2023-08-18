@@ -36,3 +36,20 @@
     transform: rotate(360deg);
   }
 }
+
+.button-top-right {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 9999;
+  background-color: #ef0d0d;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.button-top-right:hover {
+  background-color: #9e2b2b;
+}
