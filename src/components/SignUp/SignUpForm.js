@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import './SignupForm.css';
 
 const SignupForm = ({ onSuccessfulLogin }) => {
@@ -7,6 +8,7 @@ const SignupForm = ({ onSuccessfulLogin }) => {
   const [confirmPassword, setConfirmPassword] = useState('');
   const [alert, setAlert] = useState('');
   const [isLogin, setIsLogin] = useState(false);
+  const dispatch = useDispatch();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -18,7 +20,8 @@ const SignupForm = ({ onSuccessfulLogin }) => {
       let message = '';
 
       if (isLogin) {
-        endpoint = 'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAVIbdHb1HjOT4pjxuuD7s0sq-EzzC1uQo';
+        endpoint =
+          'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAVIbdHb1HjOT4pjxuuD7s0sq-EzzC1uQo';
         message = 'Login successful!';
       } else {
         if (password !== confirmPassword) {
@@ -26,7 +29,9 @@ const SignupForm = ({ onSuccessfulLogin }) => {
           setAlert('Passwords do not match');
           return;
         }
-        endpoint = 'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAVIbdHb1HjOT4pjxuuD7s0sq-EzzC1uQo';
+        endpoint =
+        endpoint =
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAVIbdHb1HjOT4pjxuuD7s0sq-EzzC1uQo';
         message = 'Signup successful!';
       }
 

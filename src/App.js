@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { BrowserRouter as Router, Route, Routes, NavLink } from 'react-router-dom';
 
 import './App.css';
@@ -9,6 +10,7 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [fullName, setFullName] = useState('');
   const [profilePhotoUrl, setProfilePhotoUrl] = useState('');
+  const dispatch = useDispatch();
 
   const handleSuccessfulLogin = (name, photoUrl) => {
     setFullName(name);

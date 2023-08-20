@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 const HomePage = () => {
   const [moneySpent, setMoneySpent] = useState('');
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
-  const [expenses, setExpenses] = useState([]);
+  const expenses = useSelector((state) => state.expenses);
+  const dispatch = useDispatch();
 
   const handleMoneySpentChange = (event) => {
     setMoneySpent(event.target.value);
@@ -28,8 +30,7 @@ const HomePage = () => {
       category,
     };
 
-    // Add the new expense to the expenses array
-    setExpenses([...expenses, newExpense]);
+    dispatch({ type: 'ADD_EXPENSE', payload: newExpense });
 
     // Reset the form
     setMoneySpent('');
@@ -38,13 +39,7 @@ const HomePage = () => {
   };
 
   const handleDeleteExpense = (index) => {
-    // Create a new array excluding the expense at the specified index
-    const updatedExpenses = expenses.filter((expense, currentIndex) => {
-      return currentIndex !== index;
-    });
-
-    // Update the expenses state with the new array
-    setExpenses(updatedExpenses);
+    dispatch({ type: 'DELETE_EXPENSE', payload: index });
   };
 
   return (
